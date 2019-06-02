@@ -44,7 +44,7 @@ public class Icosahedron extends Shape3D {
         //int vertices = 60;
         //counts[0] = vertices;
 
-        GeometryInfo gi = new GeometryInfo(GeometryInfo.TRIANGLE_FAN_ARRAY);
+        //GeometryInfo gi = new GeometryInfo(GeometryInfo.TRIANGLE_FAN_ARRAY);
         double phi = 0.5*(Math.sqrt(5)+1);
         Point3d[] vertices = {new Point3d(1,1,1),
                 new Point3d(0,1/phi,phi),new Point3d(phi,0,1/phi),
@@ -101,22 +101,33 @@ public class Icosahedron extends Shape3D {
                 30,19,17,15,14,18,19,
                 31,19,18,13,12,16,19};
 
-        gi.setCoordinates(vertices);
-        gi.setCoordinateIndices(indices);
+        //gi.setCoordinates(vertices);
+        //gi.setCoordinateIndices(indices);
         int[] stripCounts = {7,7,7,7,7,7,7,7,7,7,7,7};
-        gi.setStripCounts(stripCounts);
-        NormalGenerator ng = new NormalGenerator();
-        ng.generateNormals(gi);
+        //gi.setStripCounts(stripCounts);
+        //NormalGenerator ng = new NormalGenerator();
+        //ng.generateNormals(gi);
 
-        String[] letters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R"
-                ,"S","T","U","V","X","Y","Z"};
-        int i = 0;
+        /*String[] letters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R"
+                ,"S","T","U","V","X","Y","Z"};*/
+
+        IndexedTriangleFanArray triangleFanArray = new IndexedTriangleFanArray(84,
+                GeometryArray.COORDINATES, 84, stripCounts);
+        //IndexedTriangleFanArray triangleFanArray2 = new IndexedTriangleFanArray(84,
+        //                GeometryArray.COORDINATES | GeometryArray.TEXTURE_COORDINATE_2 ,
+        //                84, stripCounts, 84, stripCounts);
+        triangleFanArray.setCoordinates(0, vertices);
+        triangleFanArray.setCoordinateIndices(0, indices);
+
+        return triangleFanArray;
+
+        /*int i = 0;
         int j = 1;
         int mid = 0;
         String dot = "";
         boolean bandera = false;
         Point3d previos = new Point3d();
-        Point3d aux = new Point3d();
+        Point3d aux = new Point3d();*/
 
         /*for (Point3d v: vertices) {
             if (bandera) {
@@ -137,7 +148,7 @@ public class Icosahedron extends Shape3D {
         }*/
 
 
-        for (int vertex: indices) {
+        /*for (int vertex: indices) {
 
             if (bandera) {
                 dot = letters[i] + j;
@@ -154,150 +165,9 @@ public class Icosahedron extends Shape3D {
                 bandera = true;
                 i = 0;
             }
+        }*/
 
-            /*if(mid == 1){
-                mid = 0;
-                aux.x = (previos.x + vertices[vertex].x) / 2;
-                aux.y = (previos.y + vertices[vertex].y) / 2;
-                aux.z = (previos.z + vertices[vertex].z) / 2;
-                System.out.println("I"+ i +" = (" + aux.x + "," +
-                        aux.y + "," + aux.z + ")");
-            }
-            else
-                mid = mid + 1;
-
-            previos = vertices[vertex];*/
-        }
-
-        //this.setGeometry(gi.getGeometryArray());
-
-        /*Point3f a = new Point3f( 0f, -0.68f, 0.5f);
-        Point3f b = new Point3f( 0.47553f, -0.68f, 0.12941f);
-        Point3f c = new Point3f(-0.5f, -0.67f, 0.16f);
-        Point3f d = new Point3f( -0.33f, -0.67f, -0.42f);
-        Point3f e = new Point3f( 0.27f, -0.67f, -0.44f);
-        Point3f f = new Point3f(0.02f, -0.18f, 0.83f);
-        Point3f g = new Point3f( -0.78f, -0.14f, 0.29f);
-        Point3f h = new Point3f( -0.51f, -0.12f, -0.65f);
-        Point3f i = new Point3f( 0.46f, -0.14f, -0.68f);
-        Point3f j = new Point3f( 0.79f, -0.18f, 0.23f);
-        Point3f k = new Point3f( 0.51f, 0.13f, 0.67f);
-        Point3f l = new Point3f( -0.46f, 0.16f, 0.7f);
-        Point3f m = new Point3f(-0.79f, 0.19f, -0.22f);
-        Point3f n = new Point3f( -0.02f, 0.19f, -0.82f);
-        Point3f o = new Point3f( 0.78f, 0.16f, -0.27f);
-        Point3f p = new Point3f( 0.33f, 0.66f, 0.43f);
-        Point3f q = new Point3f( -0.27f, 0.67f, 0.45f);
-        Point3f r = new Point3f( -0.48f, 0.69f, -0.11f);
-        Point3f s = new Point3f( 0f, 0.69f, -0.48f);
-        Point3f t = new Point3f(0.5f, 0.67f, -0.15f);
-
-        LineArray axisZLines = new LineArray(104, LineArray.COORDINATES);
-
-        axisZLines.setCoordinate(0, a);
-        axisZLines.setCoordinate(1, b);
-        axisZLines.setCoordinate(2, b);
-        axisZLines.setCoordinate(3, e);
-        axisZLines.setCoordinate(4, e);
-        axisZLines.setCoordinate(5, d);
-        axisZLines.setCoordinate(6, d);
-        axisZLines.setCoordinate(7, c);
-        axisZLines.setCoordinate(8, c);
-        axisZLines.setCoordinate(9, a);
-        axisZLines.setCoordinate(10,c );
-        axisZLines.setCoordinate(11, g);
-        axisZLines.setCoordinate(12, g);
-        axisZLines.setCoordinate(13, l);
-        axisZLines.setCoordinate(14, l);
-        axisZLines.setCoordinate(15, f);
-        axisZLines.setCoordinate(16, f);
-        axisZLines.setCoordinate(17, a);
-        axisZLines.setCoordinate(18, d);
-        axisZLines.setCoordinate(19, h);
-        axisZLines.setCoordinate(20, h);
-        axisZLines.setCoordinate(21, m);
-        axisZLines.setCoordinate(22, m);
-        axisZLines.setCoordinate(23, g);
-        axisZLines.setCoordinate(24, g);
-        axisZLines.setCoordinate(25, c);
-        axisZLines.setCoordinate(26, d);
-        axisZLines.setCoordinate(27, e);
-        axisZLines.setCoordinate(28, e);
-        axisZLines.setCoordinate(29, i);
-        axisZLines.setCoordinate(30, i);
-        axisZLines.setCoordinate(31, n);
-        axisZLines.setCoordinate(32, n);
-        axisZLines.setCoordinate(33, h);
-        axisZLines.setCoordinate(34, h);
-        axisZLines.setCoordinate(35, d);
-        axisZLines.setCoordinate(36, e);
-        axisZLines.setCoordinate(37, b);
-        axisZLines.setCoordinate(38, b);
-        axisZLines.setCoordinate(39, j);
-        axisZLines.setCoordinate(40, j);
-        axisZLines.setCoordinate(41, o);
-        axisZLines.setCoordinate(42, o);
-        axisZLines.setCoordinate(43, i);
-        axisZLines.setCoordinate(44, i);
-        axisZLines.setCoordinate(45, e);
-        axisZLines.setCoordinate(46, a);
-        axisZLines.setCoordinate(47, f);
-        axisZLines.setCoordinate(48, f);
-        axisZLines.setCoordinate(49, k);
-        axisZLines.setCoordinate(50, k);
-        axisZLines.setCoordinate(51, j);
-        axisZLines.setCoordinate(52, j);
-        axisZLines.setCoordinate(53, b);
-        axisZLines.setCoordinate(54, k);
-        axisZLines.setCoordinate(55, f);
-        axisZLines.setCoordinate(56, f);
-        axisZLines.setCoordinate(57, l);
-        axisZLines.setCoordinate(58, l);
-        axisZLines.setCoordinate(59, q);
-        axisZLines.setCoordinate(60, q);
-        axisZLines.setCoordinate(61, p);
-        axisZLines.setCoordinate(62, p);
-        axisZLines.setCoordinate(63, k);
-        axisZLines.setCoordinate(64, l);
-        axisZLines.setCoordinate(65, g);
-        axisZLines.setCoordinate(66, g);
-        axisZLines.setCoordinate(67, m);
-        axisZLines.setCoordinate(68, m);
-        axisZLines.setCoordinate(69, r);
-        axisZLines.setCoordinate(70, r);
-        axisZLines.setCoordinate(71, q);
-        axisZLines.setCoordinate(72, q);
-        axisZLines.setCoordinate(73, l);
-        axisZLines.setCoordinate(74, o);
-        axisZLines.setCoordinate(75, j);
-        axisZLines.setCoordinate(76, j);
-        axisZLines.setCoordinate(77, k);
-        axisZLines.setCoordinate(78, k);
-        axisZLines.setCoordinate(79, p);
-        axisZLines.setCoordinate(80, p);
-        axisZLines.setCoordinate(81, t);
-        axisZLines.setCoordinate(82, t);
-        axisZLines.setCoordinate(83, o);
-        axisZLines.setCoordinate(84, n);
-        axisZLines.setCoordinate(85, i);
-        axisZLines.setCoordinate(86, i);
-        axisZLines.setCoordinate(87, o);
-        axisZLines.setCoordinate(88, o);
-        axisZLines.setCoordinate(89, t);
-        axisZLines.setCoordinate(90, t);
-        axisZLines.setCoordinate(91, s);
-        axisZLines.setCoordinate(92, s);
-        axisZLines.setCoordinate(93, n);
-        axisZLines.setCoordinate(94, t);
-        axisZLines.setCoordinate(95, p);
-        axisZLines.setCoordinate(96, p);
-        axisZLines.setCoordinate(97, q);
-        axisZLines.setCoordinate(98, q);
-        axisZLines.setCoordinate(99, r);
-        axisZLines.setCoordinate(100, r);
-        axisZLines.setCoordinate(101, s);
-        axisZLines.setCoordinate(102, s);
-        axisZLines.setCoordinate(103, t);
+        /* Icosaedro
 
         LineStripArray lineStripArray = new LineStripArray(vertices, GeometryArray.COORDINATES,counts);
         lineStripArray.setCoordinate(0,new Point3d(0 ,8.09017 ,3.09017));
@@ -360,7 +230,5 @@ public class Icosahedron extends Shape3D {
         lineStripArray.setCoordinate(57,new Point3d(1.0 ,1.618033988749895 ,0.0));
         lineStripArray.setCoordinate(58,new Point3d(0.0 ,1.0 ,1.618033988749895));
         lineStripArray.setCoordinate(59,new Point3d(-1.0 ,1.618033988749895 ,0.0));*/
-
-        return gi.getGeometryArray();
     }
 }
